@@ -4,8 +4,8 @@ import java.util.ArrayList;
  * Manage the stock in a business.
  * The stock is described by zero or more Products.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Kazeem Azeez
+ *  @version (a version number or a date)
  */
 public class StockManager
 {
@@ -37,6 +37,11 @@ public class StockManager
      */
     public void delivery(int id, int amount)
     {
+        Product prod = findProduct(id);
+        if(prod != null){
+            prod.increaseQuantity(amount);
+        }
+        
     }
     
     /**
@@ -46,6 +51,11 @@ public class StockManager
      */
     public Product findProduct(int id)
     {
+        for(Product prod: stock){
+            if (prod.getID() == id){
+                return prod;
+            }
+        }
         return null;
     }
     
@@ -58,7 +68,11 @@ public class StockManager
      */
     public int numberInStock(int id)
     {
-        return 0;
+        Product prod = findProduct(id);
+        if (prod == null){
+            return 0; 
+        }
+        return prod.getQuantity();
     }
 
     /**
@@ -66,5 +80,8 @@ public class StockManager
      */
     public void printProductDetails()
     {
+        for( Product prod : stock){
+            System.out.println(prod);
+        }
     }
 }
